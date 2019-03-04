@@ -1,36 +1,38 @@
 # Project Title
-A few sentences about the project.
-What are you building?
-What problem are you trying to solve?
-Who is the project for? Timeframe?
+Some examples with caching in flask. Using simple caching and memcached server locally.
 
 # Before you get started
-Concepts/Software/Programming modules a user may have to read up on before getting started with this project. eg. 'Read about [neural networks](https://towardsdatascience.com/how-to-build-your-own-neural-network-from-scratch-in-python-68998a08e4f6?gi=44b811975215) before getting started.'
+- Understanding of web servers and the important of cacheing.
 
 # Setup
 **How to obtain this repository:**
 ```sh
-git clone https//link.to.this.projects.git-repo
+git clone https://github.com/danielc92/flask-cache-tests.git
 ```
 **Modules/dependencies:**
-- `pandas`
-- `requests`
-- `jupyter`
-- `sklearn`
+- `flask`
 
 Install the following dependences:
 ```sh
-cd /local/location/of/this/repo
-pip install requirements.txt
+pip install flask
+```
+
+Installing memcached
+```sh
+brew install memcached
+```
+
+Running memcached as background process. `-d` runs as background process. `-p` designates the port. 
+```sh
+memcached -p {port} -d
 ```
 
 # Tests
-- Tests performed on this project. What did you do? Which files were used? Was it successful?
+- Testing setting and getting key values from local cache using `SimpleCache` method.
+- Testing setting and getting key values from local cache using `memcached` server method.
 
 # Contributors
-- Name of Contributor 1
-- Name of Contributor 2
+- Daniel Corcoran
 
 # Sources
-- Sources for techniques/tutorials used in this project to help newcomers
-- Sources for data used in this project
+- [Installing memcached server on macosx](https://www.hacksparrow.com/install-memcached-on-mac-os-x.html)
