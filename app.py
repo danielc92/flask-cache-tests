@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, render_template, request, url_for
 import datetime
+
 # Using simple cache from python interpreter
 # from werkzeug.contrib.cache import SimpleCache
 # cache = SimpleCache()
@@ -33,11 +34,13 @@ def return_difference_seconds(dt1, dt2):
 def index():
     name, timestamp = return_cache_item()
     now = datetime.datetime.now()
-    delta = return_difference_seconds(now, timestamp)
-    return '<h1>Welcome Back</h1>\
-            <p>Name: {}</p>\
-            <p>Cache Set: {}</p>\
-            <p>Time Delta: {}</p>'.format(name, timestamp, delta)
+
+    try:
+        delta = return_difference_seconds(timestamp, now)
+    except:
+        delta = None
+
+    return render_template('index.html', name=name, timetamp=timestamp, now=now, delta=delta)
 
 
 if __name__ == '__main__':
