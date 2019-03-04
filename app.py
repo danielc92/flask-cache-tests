@@ -1,17 +1,25 @@
 from flask import Flask, render_template, request, url_for
-import datetime
+from datetime import datetime
 
 # Using simple cache from python interpreter
-# from werkzeug.contrib.cache import SimpleCache
-# cache = SimpleCache()
+from werkzeug.contrib.cache import SimpleCache
+cache = SimpleCache()
 
 # Using memcached server
-from werkzeug.contrib.cache import MemcachedCache
-cache = MemcachedCache(['127.0.0.1:4800'])
+# from werkzeug.contrib.cache import MemcachedCache
+# cache = MemcachedCache(['127.0.0.1:4800'])
 
 
+# Instantiate app instance, set timeout for cache (seconds)
 app = Flask(__name__)
-app.config['TIMEOUT_CACHE'] = 20 # Seconds
+app.config['TIMEOUT_CACHE'] = 2 * 60
+
+
+# Function to return now() datetime object
+def return_now():
+    return datetime.now()
+
+
 # Function to call and set cache
 def return_cache_item():
 
@@ -21,7 +29,7 @@ def return_cache_item():
     if not name:
         cache.set('name', 'Daniel Corcoran', timeout=app.config['TIMEOUT_CACHE'])
     if not timestamp:
-        cache.set('timestamp', datetime.datetime.now(), timeout=app.config['TIMEOUT_CACHE'])
+        cache.set('timestamp', return_now(), timeout=app.config['TIMEOUT_CACHE'])
 
     return name, timestamp
 
@@ -33,7 +41,7 @@ def return_difference_seconds(dt1, dt2):
 @app.route('/')
 def index():
     name, timestamp = return_cache_item()
-    now = datetime.datetime.now()
+    now = return_now()
 
     try:
         delta = return_difference_seconds(timestamp, now)
