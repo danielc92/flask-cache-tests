@@ -40,7 +40,7 @@ def index():
     except:
         delta = None
 
-    return render_template('index.html', name=name, timetamp=timestamp, now=now, delta=delta)
+    return render_template('index.html', name=name, timestamp=timestamp, now=now, delta=delta)
 
 
 if __name__ == '__main__':
